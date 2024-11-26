@@ -1,0 +1,6 @@
+.dropdown-option {
+  @apply px-3 py-1.5 bg-secondary;
+}
+.dropdown-option.with-hover {
+  @apply hover:bg-primaryVivid cursor-pointer;
+}

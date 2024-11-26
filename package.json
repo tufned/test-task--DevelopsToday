@@ -10,6 +10,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
+    "axios": "^1.7.8",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106"
@@ -23,6 +24,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "postcss": "^8",
     "prettier": "^3.4.0",
+    "sass": "^1.81.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

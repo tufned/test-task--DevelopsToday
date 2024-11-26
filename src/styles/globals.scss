@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'partials/utils';
+
+* {
+  @apply text-dark;
+}
+
+.flex-center {
+  @include flex-center;
+}
