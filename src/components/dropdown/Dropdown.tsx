@@ -5,6 +5,7 @@ import '~/components/dropdown/dropdown.scss';
 import usePreloader from '~/hooks/usePreloader';
 import { errors } from '~/constants/errors';
 import { ServiceResponse } from '~/types/common.types';
+import { useSnackbarContext } from '~/context/snackbar-context';
 
 interface Option {
   title: string;
@@ -29,6 +30,7 @@ const Dropdown = <T = unknown,>({
   optionClickCallback
 }: DropdownProps<T>) => {
   const { isLoading, loading, preloader } = usePreloader(false);
+  const { setAlert } = useSnackbarContext();
   const [selectedOption, setSelectedOption] = useState<Option | null>();
   const [options, setOptions] = useState<Option[] | null>(null);
 
@@ -49,14 +51,14 @@ const Dropdown = <T = unknown,>({
     if (service) return await cookServiceOptions();
     else if (staticOptions) return cookStaticOptions();
     else {
-      console.error(new Error('service or staticOptions should be passed'));
+      setAlert('service or staticOptions should be passed');
       return null;
     }
   };
 
   const cookStaticOptions = () => {
     if (!staticOptions) {
-      console.error(new Error('staticOptions param required'));
+      setAlert('staticOptions param required');
       return null;
     }
     return staticOptions.map((opt) => ({
@@ -66,7 +68,7 @@ const Dropdown = <T = unknown,>({
 
   const cookServiceOptions = async () => {
     if (!service || !mapServiceData) {
-      console.error(new Error('service and mapServiceData param required'));
+      setAlert('service and mapServiceData param required');
       return null;
     }
 

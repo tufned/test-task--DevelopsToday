@@ -14,7 +14,8 @@ export default {
         secondaryLight: '#F3F1EB',
         dark: '#23262C',
         primaryVivid: '#FDC82F',
-        secondaryVivid: '#DB624E'
+        secondaryVivid: '#DB624E',
+        error: '#e14c4c'
       }
     }
   },
