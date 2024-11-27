@@ -30,7 +30,7 @@ const FilterPage = () => {
   };
 
   return (
-    <div>
+    <div className='flex flex-col justify-center'>
       <div className='flex max-sm:flex-col justify-between items-center gap-2.5 mb-5'>
         <Dropdown<VehicleMake>
           label='Make'
@@ -49,10 +49,11 @@ const FilterPage = () => {
       </div>
       <div className='flex justify-end items-center'>
         <LinkButton
-          label='Next'
           href={`${routes.result}/${filterForm.makeId}/${filterForm.year}`}
           active={!!(filterForm.makeId && filterForm.year)}
-        />
+        >
+          Next
+        </LinkButton>
       </div>
     </div>
   );

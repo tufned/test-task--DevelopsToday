@@ -7,11 +7,11 @@ export const metadata = metaData;
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang='uk'>
+    <html lang='uk' data-lt-installed='true'>
       <body className='bg-secondaryLight'>
-        <div className='flex h-screen w-screen'>
+        <div className='flex min-h-screen w-screen'>
           <SnackbarContextProvider>
-            <main className='w-full flex-center'>{children}</main>
+            <main className='w-full flex justify-center'>{children}</main>
           </SnackbarContextProvider>
         </div>
       </body>

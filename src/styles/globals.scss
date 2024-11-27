@@ -1,13 +1,14 @@
+@use 'partials/utils' as utils;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import 'partials/utils';
-
 * {
   @apply text-dark;
+  margin: 0;
 }
 
 .flex-center {
-  @include flex-center;
+  @include utils.flex-center;
 }

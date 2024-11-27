@@ -3,18 +3,18 @@ import Link, { LinkProps } from 'next/link';
 import { Routes } from '~/types/common.types';
 
 interface LinkButtonProps {
-  label: string;
+  children: React.ReactNode;
   href: LinkProps['href'] | Routes;
   active?: boolean;
 }
 
-const LinkButton: FC<LinkButtonProps> = ({ label, href, active = true }) => {
+const LinkButton: FC<LinkButtonProps> = ({ children, href, active = true }) => {
   return (
     <Link
       href={href}
-      className={`rounded-2xl flex-center px-5 py-3 select-none ${active ? 'bg-primaryVivid' : 'bg-gray-500 pointer-events-none'}`}
+      className={`w-fit rounded-2xl flex-center px-5 py-3 select-none ${active ? 'bg-primaryVivid' : 'bg-gray-500 pointer-events-none'}`}
     >
-      {label}
+      {children}
     </Link>
   );
 };
