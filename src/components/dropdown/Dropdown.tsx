@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '~/components/dropdown/dropdown.scss';
 import usePreloader from '~/hooks/usePreloader';
 import { errors } from '~/constants/errors';
@@ -33,15 +33,25 @@ const Dropdown = <T = unknown,>({
   const { setAlert } = useSnackbarContext();
   const [selectedOption, setSelectedOption] = useState<Option | null>();
   const [options, setOptions] = useState<Option[] | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const [hidden, setHidden] = useState(true);
-  const toggleOptions = (bool?: boolean) => {
-    setHidden((prev) => bool || !prev);
+  useEffect(() => {
+    if (isOpen) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target as HTMLDivElement)) {
+      setIsOpen(false);
+    }
   };
 
   const handleSelectClick = async () => {
+    setIsOpen((prev) => !prev);
+    if (options) return;
+
     loading.start();
-    toggleOptions();
     const cookedOptions = await getCookedOptions();
     setOptions(cookedOptions);
     loading.stop();
@@ -82,22 +92,22 @@ const Dropdown = <T = unknown,>({
 
   const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
-    toggleOptions(false);
+    setIsOpen(false);
     optionClickCallback(option);
   };
 
   return (
-    <div className='w-44 relative'>
+    <div className='w-44 relative' ref={dropdownRef}>
       <h3 className='text-lg'>{label}</h3>
       <div
         onClick={handleSelectClick}
-        className='border border-dark flex-center h-10 w-full rounded-lg px-2 cursor-pointer'
+        className='border border-dark flex-center min-h-10 h-fit w-full rounded-lg px-2 cursor-pointer'
       >
         <div className={selectedOption ? '' : 'text-gray-500'}>
           {selectedOption?.title ?? placeholder}
         </div>
       </div>
-      {!hidden && (
+      {isOpen && (
         <div className='absolute top-full w-full rounded-lg max-h-80 z-10 overflow-y-auto'>
           {isLoading ? (
             <div className='dropdown-option'>{preloader}</div>
